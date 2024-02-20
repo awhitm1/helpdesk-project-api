@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'sessions/create'
   # User routes
   get '/users' => 'users#index'
   get '/users/:id' => 'users#show'
@@ -20,6 +21,9 @@ Rails.application.routes.draw do
   delete '/tickets/:id' => 'tickets#destroy'
   put '/tickets/:id' => 'tickets#update'
 
+  # Session routes
+  post '/login' => 'sessions#create'
+  
   # resources :users, only: [:create, :index, :show, :update, :destroy]
   # resources :tickets, only: [:create, :update, :destroy, :tickets_by_status, :tickets_by_location, :tickets_by_group, :tickets_by_category]
 

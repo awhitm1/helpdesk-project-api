@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_request, except: [:create]
   before_action :set_user, only: [:show, :update, :destroy, :user_tickets, :assigned_tickets]
 
   def create
