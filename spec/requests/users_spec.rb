@@ -27,18 +27,33 @@ RSpec.describe "Users", type: :request do
   end
 
   describe 'GET /users' do
+    let(:user) { create(:user) }
+    let(:token) { auth_token_for_user(user) }
+
+    before do
+      user
+      get '/users', headers: { Authorization: "Bearer #{token}" }
+    end
+
     it 'returns a success response' do
-      get '/users'
       expect(response).to have_http_status(:ok)
+    end
+
+    it 'returns a list of all users' do
+      expect(response).to eq(User.all.to_json)
     end
   end
 
   describe 'GET /users/:id' do
     let! (:user) { create(:user) }
+    let  (:token) { auth_token_for_user(user) }
 
     context 'when the user exists' do
-      before { get "/users/#{user.id}" }
-
+      before do
+        user
+        get '/users/#{user.id}', headers: { Authorization: "Bearer #{token}" }
+      end
+      
       it 'returns the user' do
         expect(response).to have_http_status(:ok)
         user_response = JSON.parse(response.body)
@@ -47,7 +62,10 @@ RSpec.describe "Users", type: :request do
     end
 
     context 'when the user does not exist' do
-      before { get "/users/9999" }
+      before do
+        user
+        get '/users/9999', headers: { Authorization: "Bearer #{token}" }
+      end
 
       it 'returns an error response' do
         expect(response).to have_http_status(:not_found)

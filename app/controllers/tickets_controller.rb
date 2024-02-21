@@ -1,4 +1,10 @@
 class TicketsController < ApplicationController
+  
+  def index
+    tickets = Ticket.all
+    render json: tickets, status: :ok
+  end
+  
   def create
     @ticket = Ticket.new(ticket_params)
     if @ticket.save
