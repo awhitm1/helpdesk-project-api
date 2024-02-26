@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     new_user = User.new(user_params)
 
     if new_user.save
-      render json: new_user, status: 201
+      render json: UserBlueprint.render(new_user, view: :normal), status: 201
     else
       render json: new_user.errors, status: :unprocessable_entity
     end
@@ -14,11 +14,11 @@ class UsersController < ApplicationController
 
   def index
     users = User.all
-    render json: users, status: 200
+    render json: UserBlueprint.render(users, view: :normal), status: 200
   end
 
   def show
-    render json: @user, status:200
+    render json: UserBlueprint.render(@user, view: :normal), status:200
   end
 
   def update
