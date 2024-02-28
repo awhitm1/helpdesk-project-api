@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_request, except: [:create]
-  before_action :set_user, only: [:show, :update, :destroy, :user_tickets, :assigned_tickets]
+  before_action :set_user, only: [:show, :update, :destroy,]
 
   def create
     new_user = User.new(user_params)
@@ -34,12 +34,8 @@ class UsersController < ApplicationController
     render json: {message: "User deleted"}, status: 200
   end
 
-  def user_tickets
-    render json: @user.tickets
-  end
-
-  def assigned_tickets
-    render json: @user.assigned_tickets
+  def is_tech
+    render json: @current_user.is_tech, status: 200
   end
 
   private

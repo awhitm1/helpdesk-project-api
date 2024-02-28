@@ -11,9 +11,9 @@ class Ticket < ApplicationRecord
 
   private
 
-  def assigned_tech_must_be_tech
-    if assigned_tech_id.present? && !User.find(assigned_tech_id).is_tech
-      errors.add(:assigned_tech_id, 'must be a technician')
-    end
-  end
+  # def assigned_tech_must_be_tech
+  #   if assigned_tech_id.present? && !User.find(assigned_tech_id).is_tech
+  #     errors.add(:assigned_tech_id, 'must be a technician')
+  #   end
+  # end
 end
