@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   delete '/tickets/:id' => 'tickets#destroy'
   put '/tickets/:id' => 'tickets#update'
 
+  # List routes
+  get '/lists' => 'lists#index'
+
   # Session routes
   post '/login' => 'sessions#create'
   
