@@ -8,6 +8,9 @@ class TicketsController < ApplicationController
   
   def create
     @ticket = Ticket.new(ticket_params)
+    @ticket.is_open = true
+    @ticket.user_id = @current_user.id
+    
     if @ticket.save
       render json: @ticket, status: :created
     else
