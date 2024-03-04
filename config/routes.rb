@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   delete '/tickets/:id' => 'tickets#destroy'
   put '/tickets/:id' => 'tickets#update'
 
+  # Claim ticket route
+  get '/claim_ticket/:id' => 'tickets#claim_ticket'
+
   # List routes
   get '/lists' => 'lists#index'
 

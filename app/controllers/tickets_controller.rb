@@ -73,6 +73,17 @@ class TicketsController < ApplicationController
     render json: tickets, status: :ok
   end
 
+  def claim_ticket
+    ticket = Ticket.find(params[:id])
+    ticket.assigned_tech_id = @current_user.id
+    if ticket.save 
+      render json: ticket, status: :ok
+    else 
+      render json: ticket.errors, status: :unprocessable_entity
+    end
+    
+  end
+
   private
 
   def ticket_params
