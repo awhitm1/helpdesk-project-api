@@ -9,5 +9,5 @@ class User < ApplicationRecord
   attribute :active, :boolean, default: true
 
   validates :f_name, :l_name, :email, :password, :password_confirmation, presence: true
-
+  validates :email, uniqueness: true
 end
