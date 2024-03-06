@@ -1,12 +1,12 @@
 databases:
-    - name: mayday-helpdesk-api
-      databaseName: mayday-helpdesk-api
-      user: mayday-helpdesk-api
+    - name: helpdesk-project-api
+      databaseName: helpdesk-project-api
+      user: helpdesk-project-api
       plan: free
 
 services:
     - type: web
-      name: mayday-helpdesk-api
+      name: helpdesk-project-api
       runtime: ruby
       plan: free
       buildCommand: './bin/render-build.sh'
