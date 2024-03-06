@@ -1,7 +1,7 @@
 databases:
     - name: MaydayHelpdeskAPI
       databaseName: MaydayHelpdeskAPI
-      user: MaydayHelpdeskAPI
+      user: helpdesk
       plan: free
 
 services:
