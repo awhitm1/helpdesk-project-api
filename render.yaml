@@ -1,7 +1,7 @@
 databases:
     - name: maydayhelpdeskapi
       databaseName: maydayhelpdeskapi
-      user: helpdesk
+      user: maydayhelpdeskapi
       plan: free
 
 services:
