@@ -28,8 +28,16 @@ Rails.application.routes.draw do
   # Claim ticket route
   get '/claim_ticket/:id' => 'tickets#claim_ticket'
 
-  # List routes
+  # config routes
   get '/lists' => 'lists#index'
+  post '/config/add_group' => 'lists#add_group'
+  post '/config/add_status' => 'lists#add_status'
+  post '/config/add_location' => 'lists#add_location'
+  post '/config/add_category' => 'lists#add_category'
+  delete '/config/del_group/:id' => 'lists#del_group'
+  delete '/config/del_status/:id' => 'lists#del_status'
+  delete '/config/del_location/:id' => 'lists#del_location'
+  delete '/config/del_category/:id' => 'lists#del_category'
 
   # Session routes
   post '/login' => 'sessions#create'
