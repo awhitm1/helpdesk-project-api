@@ -7,7 +7,8 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "https://mayday-m5u3u1kvy-awhitm1s-projects.vercel.app"
+    # origins "https://mayday-m5u3u1kvy-awhitm1s-projects.vercel.app"
+    origins "*"
 
     resource "*",
       headers: :any,
