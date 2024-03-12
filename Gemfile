@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby File.read('.ruby-version').strip
+ruby "3.2.0"
 gem "jwt"
 gem "blueprinter"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
