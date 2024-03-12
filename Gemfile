@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+source "rubygems.org"
 
 ruby "3.2.0"
 gem "jwt"
