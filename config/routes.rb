@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get '/users/:id/tickets' => 'users#user_tickets'
   get '/users/:id/assigned_tickets' => 'users#assigned_tickets'
   get '/users_is_tech' => 'users#is_tech'
+  get '/current_user' => 'users#current_user'
 
   # Ticket routes
   get '/tickets' => 'tickets#index'

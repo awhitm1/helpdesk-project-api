@@ -38,6 +38,10 @@ class UsersController < ApplicationController
     render json: @current_user.is_tech, status: 200
   end
 
+  def current_user
+    render json: UserBlueprint.render(@current_user, view: :normal), status: 200
+  end
+
   private
 
   def set_user
