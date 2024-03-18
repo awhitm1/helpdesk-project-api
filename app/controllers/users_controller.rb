@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
+    if @user.update(edit_user_params)
       render json: @user, status: 200
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -50,5 +50,8 @@ class UsersController < ApplicationController
 
   def user_params
     params.permit(:f_name, :l_name, :email, :password, :password_confirmation)
+  end
+  def edit_user_params
+    params.permit(:f_name, :l_name, :email, :password, :password_confirmation, :groups, :is_tech, :is_admin, :active)
   end
 end
