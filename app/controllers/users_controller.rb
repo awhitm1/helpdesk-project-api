@@ -25,11 +25,11 @@ class UsersController < ApplicationController
     
     puts "Params received: #{edit_user_params}"
 
-    @user.active = edit_user_params[:active]
-    @user.is_tech = edit_user_params[:is_tech]
-    @user.is_admin = edit_user_params[:is_admin]
+    # @user.active = edit_user_params[:active]
+    # @user.is_tech = edit_user_params[:is_tech]
+    # @user.is_admin = edit_user_params[:is_admin]
 
-    if @user.save
+    if @user.update(edit_user_params)
       render json: UserBlueprint.render(@user, view: :normal), status: 200
     else 
       render json: @user.errors, status: :unprocessable_entity
