@@ -22,10 +22,10 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find(params[:id])
+    
     puts "Params received: #{edit_user_params}"
-    groups = edit_user_params[:groups]
-    user.groups << Group.find(groups)
+    grp = edit_user_params[:groups]
+    @user.groups << Group.find(grp)
     # if @user.update(edit_user_params) 
     #   render json: UserBlueprint.render(@user, view: :normal), status: 200
     # else 
@@ -58,6 +58,6 @@ class UsersController < ApplicationController
   end
 
   def edit_user_params
-    params.permit(:is_tech, :is_admin, :active, groups: [])
+    params.permit(:is_tech, :is_admin, :active, :groups)
   end
 end
