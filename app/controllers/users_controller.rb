@@ -26,7 +26,11 @@ class UsersController < ApplicationController
 
     if @current_user.is_admin
       user.active = edit_user_params[:active]
-      params = json.parse.edit_user_params
+      puts "is_tech: #{edit_user_params[:is_tech]}"
+      puts "is_admin: #{edit_user_params[:is_admin]}"
+      puts "groups: #{edit_user_params[:groups]}"
+      puts "active: #{edit_user_params[:active]}"
+      
       user.is_tech = params[:is_tech]
       user.is_admin = params[:is_admin]
       user.groups = params[:groups]
