@@ -22,10 +22,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(edit_user_params)
-      render json: @user, status: 200
+    user = User.find(params[:id])
+    if user.update(edit_user_params)
+      render json: user, status: 200
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: user.errors, status: :unprocessable_entity
     end
   end
 
