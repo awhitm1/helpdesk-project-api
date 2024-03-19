@@ -22,14 +22,14 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find(params[:id])
+    
     render json: {message: "Params received", params: edit_user_params}, status: 200
 
-    user.active = edit_user_params[:active]
-    if user.save
-      render json: UserBlueprint.render(user, view: :normal), status: 200
+    @user.active = edit_user_params[:active]
+    if @user.save
+      render json: UserBlueprint.render(@user, view: :normal), status: 200
     else 
-      render json: user.errors, status: :unprocessable_entity
+      render json: @user.errors, status: :unprocessable_entity
     end
     # if @current_user.is_admin
     #   puts "is_tech: #{edit_user_params[:is_tech]}"
