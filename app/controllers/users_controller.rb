@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     # @user.is_tech = edit_user_params[:is_tech]
     # @user.is_admin = edit_user_params[:is_admin]
 
-    if @user.update(edit_user_params)
+    if @user.update(edit_user_params) && @user.groups << edit_user_params[:groups]
       render json: UserBlueprint.render(@user, view: :normal), status: 200
     else 
       render json: @user.errors, status: :unprocessable_entity
