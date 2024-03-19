@@ -24,8 +24,8 @@ class UsersController < ApplicationController
   def update
     user = User.find(params[:id])
     puts "Params received: #{edit_user_params}"
-    edit_user_params.groups.each {
-      |group| user.groups << Group.find(group.id)
+    edit_user_params[:groups].each {
+      |group| user.groups << Group.find_by(name: group.name)
     }
     # if @user.update(edit_user_params) 
     #   render json: UserBlueprint.render(@user, view: :normal), status: 200
