@@ -25,15 +25,14 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
 
     if @current_user.is_admin
-      user.active = edit_user_params[:active]
       puts "is_tech: #{edit_user_params[:is_tech]}"
       puts "is_admin: #{edit_user_params[:is_admin]}"
       puts "groups: #{edit_user_params[:groups]}"
       puts "active: #{edit_user_params[:active]}"
-      
-      user.is_tech = params[:is_tech]
-      user.is_admin = params[:is_admin]
-      user.groups = params[:groups]
+      user.active = edit_user_params[:active]
+      user.is_tech = edit_user_params[:is_tech]
+      user.is_admin = edit_user_params[:is_admin]
+      user.groups = edit_user_params[:groups]
       if user.save
         render json: UserBlueprint.render(user, view: :normal), status: 200
       else 
@@ -66,7 +65,8 @@ class UsersController < ApplicationController
   def user_params
     params.permit(:f_name, :l_name, :email, :password, :password_confirmation)
   end
+
   def edit_user_params
-    params.permit(:f_name, :l_name, :email, :password, :password_confirmation, :groups, :is_tech, :is_admin, :active)
+    params.permit(:groups, :is_tech, :is_admin, :active)
   end
 end

@@ -11,7 +11,7 @@ class User < ApplicationRecord
   # validates :f_name, :l_name, :email, :password, :password_confirmation, presence: true, on: :create
   # validates :email, uniqueness: true, if: :do_validation?
 
-  def do_validation?
-    new_record? || email_changed?
-  end
+  # def do_validation?
+  #   new_record? || email_changed?
+  # end
 end
