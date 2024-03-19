@@ -8,6 +8,10 @@ class User < ApplicationRecord
   attribute :is_admin, :boolean, default: false
   attribute :active, :boolean, default: true
 
-  # validates :f_name, :l_name, :email, :password, :password_confirmation, presence: true
-  # validates :email, uniqueness: true
+  # validates :f_name, :l_name, :email, :password, :password_confirmation, presence: true, on: :create
+  # validates :email, uniqueness: true, if: :do_validation?
+
+  def do_validation?
+    new_record? || email_changed?
+  end
 end
