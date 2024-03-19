@@ -26,6 +26,9 @@ class UsersController < ApplicationController
     render json: {message: "Params received", params: edit_user_params}, status: 200
 
     @user.active = edit_user_params[:active]
+    @user.is_tech = edit_user_params[:is_tech]
+    @user.is_admin = edit_user_params[:is_admin]
+    
     if @user.save
       render json: UserBlueprint.render(@user, view: :normal), status: 200
     else 
