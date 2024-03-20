@@ -22,18 +22,20 @@ class UsersController < ApplicationController
   end
 
   def update
-    
     puts "Params received: #{edit_user_params}"
-    grp = edit_user_params[:groups]
+
+    # put the received group ids into an array - only unique, no duplicates
+    group_ids = Array(edit_user_params[:groups]).map(&:to_i).uniq
+
+    # clear the users groups
     @user.groups.clear
-    if @user.groups << Group.find(grp)
+    
+    if @user.update(groups: Group.where(id: group_ids), is_tech: edit_user_params[:is_tech], is_admin: edit_user_params[:is_admin], active: edit_user_params[:active])
       render json: UserBlueprint.render(@user, view: :normal), status: 200
+    else
+      render json: { errors: @user.errors.full_message }, status: :unprocessable_entity
     end
-    # if @user.update(edit_user_params) 
-    #   render json: UserBlueprint.render(@user, view: :normal), status: 200
-    # else 
-    #   render json: @user.errors, status: :unprocessable_entity
-    # end
+    
     
   end
 
@@ -54,6 +56,8 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: 'User not found' }, status: :not_found
   end
 
   def user_params
@@ -61,6 +65,6 @@ class UsersController < ApplicationController
   end
 
   def edit_user_params
-    params.permit(:is_tech, :is_admin, :active, :groups)
+    params.permit(:is_tech, :is_admin, :active, groups: [])
   end
 end
