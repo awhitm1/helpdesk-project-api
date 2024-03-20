@@ -25,6 +25,7 @@ class UsersController < ApplicationController
     
     puts "Params received: #{edit_user_params}"
     grp = edit_user_params[:groups]
+    @user.groups.clear
     if @user.groups << Group.find(grp)
       render json: UserBlueprint.render(@user, view: :normal), status: 200
     end
