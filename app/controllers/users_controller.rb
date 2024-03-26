@@ -49,7 +49,8 @@ class UsersController < ApplicationController
   end
 
   def current_user
-    render json: UserBlueprint.render(@current_user, view: :normal), status: 200
+    user = User.find(@current_user.id)
+    render json: UserBlueprint.render(user, view: :normal), status: 200
   end
 
   private
