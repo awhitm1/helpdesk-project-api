@@ -66,6 +66,6 @@ class UsersController < ApplicationController
   end
 
   def edit_user_params
-    params.permit(:is_tech, :is_admin, :active, groups: [])
+    params.permit(:is_tech, :is_admin, :active, groups: [], :profile_image)
   end
 end

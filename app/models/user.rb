@@ -11,6 +11,8 @@ class User < ApplicationRecord
   # validates :f_name, :l_name, :email, :password, :password_confirmation, presence: true, on: :create
   # validates :email, uniqueness: true, if: :do_validation?
 
+  has_one_attached :profile_image
+  
   # def do_validation?
   #   new_record? || email_changed?
   # end

@@ -4,7 +4,7 @@ class UserBlueprint < Blueprinter::Base
   identifier :id
   
   view :normal do
-    fields :f_name, :l_name, :email, :is_tech, :is_admin, :active
+    fields :f_name, :l_name, :email, :is_tech, :is_admin, :active, :profile_image_url
     association :groups, blueprint: GroupsBlueprint
   end
 end
