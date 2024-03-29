@@ -12,6 +12,10 @@ class User < ApplicationRecord
   # validates :email, uniqueness: true, if: :do_validation?
 
   has_one_attached :profile_image
+
+  def profile_image_url
+    rails_blob_url(self.profile_image, only_path: true) if self.profile_image.attached?
+  end
   
   # def do_validation?
   #   new_record? || email_changed?
