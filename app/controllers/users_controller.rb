@@ -56,7 +56,7 @@ class UsersController < ApplicationController
   def upload_image
     user = User.find(params[:id])
     if user.profile_image.attach(params[:profile_image])
-      render json: { message: 'Image uploaded' }, status: 200
+      render json: { message: 'Image uploaded', url: rails_blob_url(user.profile_image, only_path: false) }, status: 200
     else
       render json: { error: 'Image not uploaded' }, status: :unprocessable_entity
     end
