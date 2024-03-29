@@ -53,7 +53,14 @@ class UsersController < ApplicationController
     render json: UserBlueprint.render(user_current, view: :normal), status: 200
   end
 
-  
+  def upload_image
+    user = User.find(params[:id])
+    if user.image.attach(params[:profile_image])
+      render json: { message: 'Image uploaded' }, status: 200
+    else
+      render json: { error: 'Image not uploaded' }, status: :unprocessable_entity
+    end
+  end
 
   private
 

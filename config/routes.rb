@@ -42,6 +42,9 @@ Rails.application.routes.draw do
 
   # Session routes
   post '/login' => 'sessions#create'
+
+  # Upload images
+  post '/users/:id/upload_image' => 'users#upload_image'
   
   # resources :users, only: [:create, :index, :show, :update, :destroy]
   # resources :tickets, only: [:create, :update, :destroy, :tickets_by_status, :tickets_by_location, :tickets_by_group, :tickets_by_category]
