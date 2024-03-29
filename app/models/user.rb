@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include Rails.application.routes.url_helpers
   has_secure_password
   has_and_belongs_to_many :groups
   has_many :tickets
@@ -14,7 +15,7 @@ class User < ApplicationRecord
   has_one_attached :profile_image
 
   def profile_image_url
-    rails_blob_path(self.profile_image, only_path: false) if self.profile_image.attached?
+    rails_blob_url(self.profile_image, only_path: false) if self.profile_image.attached?
   end
 
   # def do_validation?
