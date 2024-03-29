@@ -15,7 +15,7 @@ class User < ApplicationRecord
   has_one_attached :profile_image
 
   def profile_image_url
-    rails_blob_url(self.profile_image, only_path: true) if self.profile_image.attached?
+    rails_blob_url(self.profile_image, only_path: false) if self.profile_image.attached?
   end
 
   # def do_validation?
