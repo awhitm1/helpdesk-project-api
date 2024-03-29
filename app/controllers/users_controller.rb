@@ -53,6 +53,10 @@ class UsersController < ApplicationController
     render json: UserBlueprint.render(user_current, view: :normal), status: 200
   end
 
+  def cover_image_url
+    rails_blob_url(self.profile_image, only_path: true) if self.profile_image.attached?
+  end
+
   private
 
   def set_user
