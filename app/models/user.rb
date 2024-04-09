@@ -9,7 +9,8 @@ class User < ApplicationRecord
   attribute :is_admin, :boolean, default: false
   attribute :active, :boolean, default: true
 
-  validates :f_name, :l_name, :email, :password, :password_confirmation, presence: true
+  validates :f_name, :l_name, :email, presence: true, on: :create, on: :update
+  validates :password, :password_confirmation, presence: true, on: :create
   validates :email, uniqueness: true, if: :do_email_validation?
 
   has_one_attached :profile_image
