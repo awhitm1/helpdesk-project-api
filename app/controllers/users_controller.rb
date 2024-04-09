@@ -30,7 +30,20 @@ class UsersController < ApplicationController
     # clear the users groups
     @user.groups.clear
     
-    if @user.update(groups: Group.where(id: group_ids), is_tech: edit_user_params[:is_tech], is_admin: edit_user_params[:is_admin], active: edit_user_params[:active], f_name: edit_user_params[:f_name], l_name: edit_user_params[:l_name], email: edit_user_params[:email])
+    # Prepare the attributes hash for updating
+    attributes_to_update = {}
+
+    # Add attributes to the hash if they are present in the params
+    attributes_to_update[:is_tech] = edit_user_params[:is_tech] if edit_user_params[:is_tech].present?
+    attributes_to_update[:is_admin] = edit_user_params[:is_admin] if edit_user_params[:is_admin].present?
+    attributes_to_update[:active] = edit_user_params[:active] if edit_user_params[:active].present?
+    attributes_to_update[:f_name] = edit_user_params[:f_name] if edit_user_params[:f_name].present?
+    attributes_to_update[:l_name] = edit_user_params[:l_name] if edit_user_params[:l_name].present?
+    attributes_to_update[:email] = edit_user_params[:email] if edit_user_params[:email].present?
+    attributes_to_update[:groups] = Group.where(id: group_ids)
+
+    # do the update with the attributes hash
+    if @user.update(attributes_to_update)
       render json: UserBlueprint.render(@user, view: :normal), status: 200
     else
       render json: { errors: @user.errors.full_message }, status: :unprocessable_entity
@@ -74,7 +87,8 @@ class UsersController < ApplicationController
     params.permit(:f_name, :l_name, :email, :password, :password_confirmation, :profile_image)
   end
 
+  # only permit the params that are present - remove nil values
   def edit_user_params
-    params.permit(:f_name, :l_name, :email, :is_tech, :is_admin, :active, :profile_image, groups: []).compact
+    params.select { |_, v| v.present? }.permit(:f_name, :l_name, :email, :is_tech, :is_admin, :active, :profile_image, groups: [])
   end
 end
