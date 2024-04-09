@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     puts "Attributes to update: #{attributes_to_update}"
 
     # do the update with the attributes hash
-    if @user.update(l_name: attributes)
+    if @user.update(attributes_to_update)
       render json: UserBlueprint.render(@user, view: :normal), status: 200
     else
       render json: { errors: @user.errors }, status: :unprocessable_entity
