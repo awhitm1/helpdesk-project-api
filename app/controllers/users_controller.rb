@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     # clear the users groups
     @user.groups.clear
     
-    if @user.update(groups: Group.where(id: group_ids), is_tech: edit_user_params[:is_tech], is_admin: edit_user_params[:is_admin], active: edit_user_params[:active])
+    if @user.update(groups: Group.where(id: group_ids), is_tech: edit_user_params[:is_tech], is_admin: edit_user_params[:is_admin], active: edit_user_params[:active], f_name: edit_user_params[:f_name], l_name: edit_user_params[:l_name], email: edit_user_params[:email])
       render json: UserBlueprint.render(@user, view: :normal), status: 200
     else
       render json: { errors: @user.errors.full_message }, status: :unprocessable_entity
