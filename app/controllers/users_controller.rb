@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_request, except: [:create]
-  before_action :set_user, only: [:show, :update, :destroy,]
+  before_action :set_user, only: [:show, :update, :destroy, :upload_image]
 
   def create
     new_user = User.new(user_params)
@@ -68,9 +68,8 @@ class UsersController < ApplicationController
   end
 
   def upload_image
-    user = User.find(params[:id])
-    if user.profile_image.attach(params[:profile_image])
-      render json: { message: 'Image uploaded', url: rails_blob_url(user.profile_image, only_path: false) }, status: 200
+    if @user.profile_image.attach(params[:profile_image])
+      render json: UserBlueprint.render(@user, view: :normal), status: 200
     else
       render json: { error: 'Image not uploaded' }, status: :unprocessable_entity
     end
