@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     if @user.update(attributes_to_update)
       render json: UserBlueprint.render(@user, view: :normal), status: 200
     else
-      render json: { errors: @user.errors.full_message }, status: :unprocessable_entity
+      render json: { errors: @user.errors }, status: :unprocessable_entity
     end
     
     
