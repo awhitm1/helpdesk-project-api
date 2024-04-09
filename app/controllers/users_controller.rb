@@ -41,7 +41,8 @@ class UsersController < ApplicationController
     attributes_to_update[:l_name] = edit_user_params[:l_name] if edit_user_params[:l_name].present?
     attributes_to_update[:email] = edit_user_params[:email] if edit_user_params[:email].present?
     attributes_to_update[:groups] = Group.where(id: group_ids)
-
+    puts "Attributes to update: #{attributes_to_update}"
+    
     # do the update with the attributes hash
     if @user.update(attributes_to_update)
       render json: UserBlueprint.render(@user, view: :normal), status: 200
