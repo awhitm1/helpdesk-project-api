@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module HelpdeskProjectApi
   class Application < Rails::Application
+    # rate limiting
+    config.middleware.use Rack::Attack
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
 
