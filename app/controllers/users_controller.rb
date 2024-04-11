@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_request, except: [:create]
+  before_action :authenticate_request, except: [:create, :default]
   before_action :set_user, only: [:show, :update, :destroy, :upload_image]
 
   def default
