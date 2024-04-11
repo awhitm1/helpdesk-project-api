@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/' => 'users#default'
   get 'sessions/create'
   # User routes
   get '/users' => 'users#index'

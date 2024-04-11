@@ -2,6 +2,10 @@ class UsersController < ApplicationController
   before_action :authenticate_request, except: [:create]
   before_action :set_user, only: [:show, :update, :destroy, :upload_image]
 
+  def default
+    render json: { message: 'Welcome to the Help Desk API' }, status: 200
+  end
+  
   def create
     new_user = User.new(user_params)
 
