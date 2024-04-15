@@ -10,7 +10,7 @@ class TicketsController < ApplicationController
   def create
     # Prepare the attributes hash for updating
     attributes_to_update = {}
-    :title, :description, :user_id, :assigned_tech_id, :is_open, :category_id, :location_id, :group_id, :status_id, :comment_content
+    
     # Add attributes to the hash if they are present in the params
     attributes_to_update[:title] = ticket_params[:title] if ticket_params[:title].present?
     attributes_to_update[:description] = ticket_params[:description] if ticket_params[:description].present?
@@ -122,8 +122,8 @@ class TicketsController < ApplicationController
   private
 
   def ticket_params
-    # params.require(:ticket).permit(:title, :description, :user_id, :assigned_tech_id, :is_open, :category_id, :location_id, :group_id, :status_id, :comment_content)
-    params.select { |_, v| v.present? }.permit(:title, :description, :user_id, :assigned_tech_id, :is_open, :category_id, :location_id, :group_id, :status_id, :comment_content)
+    params.require(:ticket).permit(:title, :description, :user_id, :assigned_tech_id, :is_open, :category_id, :location_id, :group_id, :status_id, :comment_content)
+    # params.select { |_, v| v.present? }.permit(:title, :description, :user_id, :assigned_tech_id, :is_open, :category_id, :location_id, :group_id, :status_id, :comment_content)
   end
 
   
