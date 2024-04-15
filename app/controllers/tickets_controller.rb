@@ -3,7 +3,7 @@ class TicketsController < ApplicationController
 
   def index
     tickets = Ticket.all
-    render json: tickets, status: :ok
+    render json: Blueprinter.render(tickets, view: :normal), status: :ok
   end
   
   def create
@@ -13,7 +13,7 @@ class TicketsController < ApplicationController
     @ticket.add_comment(params[:comment_content], @current_user) if params[:comment_content].present?
 
     if @ticket.save
-      render json: @ticket, status: :created
+      render json: Blueprinter.render(@ticket, view: :normal), status: :created
     else
       render json: @ticket.errors, status: :unprocessable_entity
     end
@@ -21,15 +21,15 @@ class TicketsController < ApplicationController
 
   def show
     ticket = Ticket.find(params[:id])
-    render json: ticket, status: :ok
+    render json: Blueprinter.render(ticket, view: :normal), status: :ok
   end
 
   def update
     @ticket = Ticket.find(params[:id])
     @ticket.add_comment(params[:comment_content], @current_user) if params[:comment_content].present?
-    
+
     if @ticket && @ticket.update(ticket_params)
-      render json: @ticket, status: :ok
+      render json: Blueprinter.render(@ticket, view: :normal), status: :ok
     else
       render json: @ticket.errors, status: :unprocessable_entity
     end
@@ -37,43 +37,43 @@ class TicketsController < ApplicationController
 
   def open 
     tickets = Ticket.where(is_open: true)
-    render json: tickets, status: :ok
+    render json: Blueprinter.render(tickets, view: :normal), status: :ok
   end
 
   def destroy
     @ticket = Ticket.find(params[:id])
     @ticket.destroy
-    render json: @ticket, status: :ok
+    render json: Blueprinter.render(@ticket, view: :normal), status: :ok
   end
 
   def tickets_by_status
     tickets = Ticket.where(status_id: params[:id])
-    render json: tickets, status: :ok
+    render json: Blueprinter.render(tickets, view: :normal), status: :ok
   end
 
   def tickets_by_location
     tickets = Ticket.where(location_id: params[:id])
-    render json: tickets, status: :ok
+    render json: Blueprinter.render(tickets, view: :normal), status: :ok
   end
 
   def tickets_by_group
     tickets = Ticket.where(group_id: @current_user.groups)
-    render json: tickets, status: :ok
+    render json: Blueprinter.render(tickets, view: :normal), status: :ok
   end
 
   def tickets_by_category
     tickets = Ticket.where(category_id: params[:id])
-    render json: tickets, status: :ok
+    render json: Blueprinter.render(tickets, view: :normal), status: :ok
   end
 
   def users_tickets
     tickets = Ticket.where(user_id: @current_user.id)
-    render json: tickets, status: :ok
+    render json: Blueprinter.render(tickets, view: :normal), status: :ok
   end
 
   def assigned_tickets
     tickets = Ticket.where(assigned_tech_id: @current_user.id)
-    render json: tickets, status: :ok
+    render json: Blueprinter.render(tickets, view: :normal), status: :ok
   end
 
   def claim_ticket
