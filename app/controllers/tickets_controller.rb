@@ -3,7 +3,7 @@ class TicketsController < ApplicationController
 
   def index
     tickets = Ticket.all
-    render json: TicketBlueprint.render(tickets, view: :normal), status: :ok
+    render json: tickets, status: :ok
   end
   
   def create
