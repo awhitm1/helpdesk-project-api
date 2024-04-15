@@ -2,9 +2,9 @@
 
 class TicketBlueprint < Blueprinter::Base
   identifier :id
-  
+
   view :normal do
-    fields :title, :description, :is_open, :user, :assigned_tech, :category, :status, :group, :location, :created_at, :updated_at
+    fields :title, :description, :is_open, :user_id, :assigned_tech_id, :category_id, :status_id, :group_id, :location_id, :created_at, :updated_at
     association :comments, blueprint: CommentBlueprint
   end
   

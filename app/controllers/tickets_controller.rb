@@ -3,7 +3,7 @@ class TicketsController < ApplicationController
 
   def index
     tickets = Ticket.all
-    render json: tickets, status: :ok
+    render json: TicketBlueprint.render(tickets, view: :normal), status: :ok
   end
   
   def create
@@ -68,19 +68,19 @@ class TicketsController < ApplicationController
 
   def users_tickets
     tickets = Ticket.where(user_id: @current_user.id)
-    render json: tickets, status: :ok
+    render json: TicketBlueprint.render(tickets, view: :normal), status: :ok
   end
 
   def assigned_tickets
     tickets = Ticket.where(assigned_tech_id: @current_user.id)
-    render json: tickets, status: :ok
+    render json: TicketBlueprint.render(tickets, view: :normal), status: :ok
   end
 
   def claim_ticket
     ticket = Ticket.find(params[:id])
     ticket.assigned_tech_id = @current_user.id
     if ticket.save 
-      render json: ticket, status: :ok
+      render json: TicketBlueprint.render(ticket, view: :normal), status: :ok
     else 
       render json: ticket.errors, status: :unprocessable_entity
     end
