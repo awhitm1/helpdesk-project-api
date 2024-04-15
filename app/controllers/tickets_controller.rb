@@ -68,12 +68,12 @@ class TicketsController < ApplicationController
 
   def users_tickets
     tickets = Ticket.where(user_id: @current_user.id)
-    render json: TicketBlueprint.render(tickets, view: :normal), status: :ok
+    render json: tickets, status: :ok
   end
 
   def assigned_tickets
     tickets = Ticket.where(assigned_tech_id: @current_user.id)
-    render json: TicketBlueprint.render(tickets, view: :normal), status: :ok
+    render json: tickets, status: :ok
   end
 
   def claim_ticket
