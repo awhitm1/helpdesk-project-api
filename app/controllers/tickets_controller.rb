@@ -1,6 +1,7 @@
 class TicketsController < ApplicationController
   before_action :authenticate_request, except: [:index]
 
+  # Get all tickets
   def index
     tickets = Ticket.all
     render json: TicketBlueprint.render(tickets, view: :normal), status: :ok
