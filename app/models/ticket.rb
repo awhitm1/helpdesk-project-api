@@ -5,6 +5,11 @@ class Ticket < ApplicationRecord
   belongs_to :location
   belongs_to :group
   belongs_to :status
+  has_many :comments, dependent: :destroy
+
+  def add_comment(user, content)
+    comments.create(user_id: user.id, content: content)
+  end
 
   # validates :title, :description, :is_open, :user_id, :category_id, :group_id, :location_id, :status_id, presence: true
   # validates :assigned_tech_must_be_tech

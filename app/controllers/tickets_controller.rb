@@ -10,7 +10,8 @@ class TicketsController < ApplicationController
     @ticket = Ticket.new(ticket_params)
     @ticket.is_open = true
     @ticket.user_id = @current_user.id
-    
+    @ticket.add_comment(params[:comment_content], @current_user) if params[:comment_content].present?
+
     if @ticket.save
       render json: @ticket, status: :created
     else
@@ -25,6 +26,8 @@ class TicketsController < ApplicationController
 
   def update
     @ticket = Ticket.find(params[:id])
+    @ticket.add_comment(params[:comment_content], @current_user) if params[:comment_content].present?
+    
     if @ticket && @ticket.update(ticket_params)
       render json: @ticket, status: :ok
     else
