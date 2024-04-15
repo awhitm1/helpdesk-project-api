@@ -24,7 +24,7 @@ class TicketsController < ApplicationController
     @ticket = Ticket.new(attributes_to_update)
     @ticket.is_open = true
     @ticket.user_id = @current_user.id
-    @ticket.add_comment(params[:comment_content], @current_user) if params[:comment_content].present?
+    @ticket.add_comment(ticket_params[:comment_content], @current_user) if ticket_params[:comment_content].present?
 
     if @ticket.save
       render json: TicketBlueprint.render(@ticket, view: :normal), status: :created
@@ -55,8 +55,8 @@ class TicketsController < ApplicationController
     attributes_to_update[:status_id] = ticket_params[:status_id] if ticket_params[:status_id].present?
 
     # add the comment if it is present
-    if @ticket && params[:comment_content].present?
-      @ticket.add_comment(params[:comment_content], @current_user)
+    if @ticket && ticket_params[:comment_content].present?
+      @ticket.add_comment(ticket_params[:comment_content], @current_user)
     end
 
     # do the update with the attributes hash (having removed the comment_content from the hash)
