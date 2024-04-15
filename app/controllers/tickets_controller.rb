@@ -122,7 +122,8 @@ class TicketsController < ApplicationController
   private
 
   def ticket_params
-    params.require(:ticket).permit(:title, :description, :user_id, :assigned_tech_id, :is_open, :category_id, :location_id, :group_id, :status_id, :comment_content)
+    # params.require(:ticket).permit(:title, :description, :user_id, :assigned_tech_id, :is_open, :category_id, :location_id, :group_id, :status_id, :comment_content)
+    params.select { |_, v| v.present? }.permit(:title, :description, :user_id, :assigned_tech_id, :is_open, :category_id, :location_id, :group_id, :status_id, :comment_content)
   end
 
   
