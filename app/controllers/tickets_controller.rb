@@ -7,7 +7,20 @@ class TicketsController < ApplicationController
   end
   
   def create
-    @ticket = Ticket.new(ticket_params)
+    # Prepare the attributes hash for updating
+    attributes_to_update = {}
+    :title, :description, :user_id, :assigned_tech_id, :is_open, :category_id, :location_id, :group_id, :status_id, :comment_content
+    # Add attributes to the hash if they are present in the params
+    attributes_to_update[:title] = ticket_params[:title] if ticket_params[:title].present?
+    attributes_to_update[:description] = ticket_params[:description] if ticket_params[:description].present?
+    attributes_to_update[:assigned_tech_id] = ticket_params[:assigned_tech_id] if ticket_params[:assigned_tech_id].present?
+    attributes_to_update[:is_open] = ticket_params[:is_open] if ticket_params[:is_open].present?
+    attributes_to_update[:category_id] = ticket_params[:category_id] if ticket_params[:category_id].present?
+    attributes_to_update[:location_id] = ticket_params[:location_id] if ticket_params[:location_id].present?
+    attributes_to_update[:group_id] = ticket_params[:group_id] if ticket_params[:group_id].present?
+    attributes_to_update[:status_id] = ticket_params[:status_id] if ticket_params[:status_id].present?
+
+    @ticket = Ticket.new(attributes_to_update)
     @ticket.is_open = true
     @ticket.user_id = @current_user.id
     @ticket.add_comment(params[:comment_content], @current_user) if params[:comment_content].present?
@@ -26,12 +39,30 @@ class TicketsController < ApplicationController
 
   def update
     @ticket = Ticket.find(params[:id])
-    @ticket.add_comment(params[:comment_content], @current_user) if params[:comment_content].present?
 
-    if @ticket && @ticket.update(ticket_params)
+    # Prepare the attributes hash for updating
+    attributes_to_update = {}
+
+    # Add attributes to the hash if they are present in the params
+    attributes_to_update[:title] = ticket_params[:title] if ticket_params[:title].present?
+    attributes_to_update[:description] = ticket_params[:description] if ticket_params[:description].present?
+    attributes_to_update[:assigned_tech_id] = ticket_params[:assigned_tech_id] if ticket_params[:assigned_tech_id].present?
+    attributes_to_update[:is_open] = ticket_params[:is_open] if ticket_params[:is_open].present?
+    attributes_to_update[:category_id] = ticket_params[:category_id] if ticket_params[:category_id].present?
+    attributes_to_update[:location_id] = ticket_params[:location_id] if ticket_params[:location_id].present?
+    attributes_to_update[:group_id] = ticket_params[:group_id] if ticket_params[:group_id].present?
+    attributes_to_update[:status_id] = ticket_params[:status_id] if ticket_params[:status_id].present?
+
+    # add the comment if it is present
+    if @ticket && params[:comment_content].present?
+      @ticket.add_comment(params[:comment_content], @current_user)
+    end
+
+    # do the update with the attributes hash (having removed the comment_content from the hash)
+    if @ticket.update(attributes_to_update)
       render json: TicketBlueprint.render(@ticket, view: :normal), status: :ok
     else
-      render json: @ticket.errors, status: :unprocessable_entity
+      render json: @ticket.errors, status: :unprocessable_entity 
     end
   end
 
