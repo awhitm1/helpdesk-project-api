@@ -47,11 +47,11 @@ group :development, :test do
   gem 'faker'
 end
 
-group :development do
-  gem 'sqlite3', "~> 1.4"
+#group :development do
+  #gem 'sqlite3', "~> 1.4"
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-end
+#end
 
 group :production do
   gem 'pg'
