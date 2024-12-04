@@ -12,7 +12,8 @@ class SessionsController < ApplicationController
   private
 
   def jwt_encode(payload, exp=24.hours.from_now)
-    secret = ENV['RAILS_MASTER_KEY']
+    # secret = ENV['RAILS_MASTER_KEY']
+    secret = Rails.application.credentials.secret_key_base
     payload[:exp] = exp.to_i
     JWT.encode(payload, secret)
   end
