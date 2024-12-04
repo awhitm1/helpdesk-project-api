@@ -6,8 +6,8 @@ class ApplicationController < ActionController::API
     end
 
     begin
-      #secret = ENV['RAILS_MASTER_KEY']  # Or use Rails.application.credentials if you're using credentials
-      secret = Rails.application.credentials.secret_key_base
+      secret = ENV['RAILS_MASTER_KEY']  # Or use Rails.application.credentials if you're using credentials
+      #secret = Rails.application.credentials.secret_key_base
       decoded = JWT.decode(token, secret).first
 
       # Assuming the token contains user_id
