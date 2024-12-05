@@ -55,5 +55,5 @@ end
 
 group :production do
   gem 'pg'
-  gem 'cloudinary'
+  #gem 'cloudinary'
 end
