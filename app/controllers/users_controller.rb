@@ -9,6 +9,9 @@ class UsersController < ApplicationController
   def create
     new_user = User.new(user_params)
 
+    # Set is_admin to true if no users exist
+    new_user.is_admin = true if User.count.zero?
+
     if new_user.save
       render json: UserBlueprint.render(new_user, view: :normal), status: 201
     else
